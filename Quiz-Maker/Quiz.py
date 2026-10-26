@@ -11,6 +11,8 @@ def Create_quiz(filename):
     Current_question_index = 0
     global Final_points
     Final_points = 0
+    global All_points
+    All_points = 0
 
     with open(filename, "r") as File:
         Lines = File.readlines()
@@ -59,6 +61,9 @@ def Create_quiz(filename):
             global Final_points
             Final_points += 1
 
+        global All_points
+        All_points += 1
+        
         global Current_question_index
         Current_question_index += 1
 
@@ -68,8 +73,15 @@ def Create_quiz(filename):
             for Widget in Window.winfo_children():
                 Widget.destroy()
 
-            Final_score_label = ctk.CTkLabel(Window,text= f"Final Score is {Final_points}")
+            Final_score_frame1 = ctk.CTkFrame(Window)
+            Final_score_frame1.place(relx=0.5,rely=0.5,anchor="center")
+            Final_score_frame2 = ctk.CTkFrame(Final_score_frame1)
+            Final_score_frame2.grid(row=0,column=0,padx=5,pady=5)
+            Final_score_frame3 = ctk.CTkFrame(Final_score_frame2)
+            Final_score_frame3.grid(row=0,column=0,padx=5,pady=5)
+            Final_score_label = ctk.CTkLabel(Final_score_frame3,text= f"Final score is {Final_points}/{All_points}")
             Final_score_label.grid(row=0,column=0,padx=5,pady=5)
+            Window.geometry("140x70")
 
     Frame1 = ctk.CTkFrame(Window)
     Frame1.place(relx=0.5,rely=0.5,anchor="center")
